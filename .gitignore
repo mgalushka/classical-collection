@@ -1,6 +1,7 @@
 #
 .idea
 venv
+db.imslp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
