@@ -11,6 +11,9 @@ class DatabaseDriver:
 
     def __init__(self):
         self.is_opened = False
+        self.size = -1
+        self.file = None
+        self.mmap = None
         self.open()
 
     def open(self):

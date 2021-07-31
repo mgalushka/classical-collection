@@ -1,5 +1,4 @@
-# import logging
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request
 from werkzeug.utils import redirect
 
 from src.database.db import DatabaseDriver
@@ -16,13 +15,12 @@ def search():
         return redirect('/')
     app.logger.warning(request.args)
     term = request.form.get('term', '')
-    app.logger.warning(term)
+    app.logger.info(term)
     print(term)
     database = DatabaseDriver()
-    results = []
     try:
         results = database.search(term)
-        app.logger.warning(results)
+        app.logger.info(results)
     finally:
         database.close()
     return render_template('index.html', results=results)

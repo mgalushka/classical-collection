@@ -1,5 +1,4 @@
 import logging
-import re
 import requests
 
 from src.database.db import DatabaseDriver

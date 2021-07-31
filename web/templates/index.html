@@ -12,7 +12,6 @@
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
-
 </head>
 <body>
 
@@ -25,7 +24,9 @@
   <button class="ui button" type="submit">search</button>
 </form>
 
-<h3 class="ui center aligned header">Stackable Divided Grid</h3>
+{% if results %}
+<h3 class="ui center aligned header">Results</h3>
+{% endif %}
 <div class="ui stackable one column divided grid container">
   {% for result in results %}
   <div class="row">
@@ -39,67 +40,8 @@
   {% endfor %}
 </div>
 
-<!-- Content JS HERE !-->
-<style>
-  .last.container {
-    margin-bottom: 300px !important;
-  }
-  h1.ui.center.header {
-    margin-top: 3em;
-  }
-  h2.ui.center.header {
-    margin: 4em 0em 2em;
-  }
-  h3.ui.center.header {
-    margin-top: 2em;
-    padding: 2em 0em;
-  }
-</style>
+<div class="special">Test</div>
 
-<script type="text/javascript">
-$(document).ready(function() {
-
-  var
-    $headers     = $('body > h3'),
-    $header      = $headers.first(),
-    ignoreScroll = false,
-    timer
-  ;
-
-  // Preserve example in viewport when resizing browser
-  $(window)
-    .on('resize', function() {
-      // ignore callbacks from scroll change
-      clearTimeout(timer);
-      $headers.visibility('disable callbacks');
-
-      // preserve position
-      $(document).scrollTop( $header.offset().top );
-
-      // allow callbacks in 500ms
-      timer = setTimeout(function() {
-        $headers.visibility('enable callbacks');
-      }, 500);
-    })
-  ;
-  $headers
-    .visibility({
-      // fire once each time passed
-      once: false,
-
-      // don't refresh position on resize
-      checkOnRefresh: true,
-
-      // lock to this element on resize
-      onTopPassed: function() {
-        $header = $(this);
-      },
-      onTopPassedReverse: function() {
-        $header = $(this);
-      }
-    })
-  ;
-});
-</script>
+<script src="static/display.js"></script>
 </body>
 </html>
