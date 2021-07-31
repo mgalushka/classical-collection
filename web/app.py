@@ -20,7 +20,7 @@ def search():
     print(term)
     database = DatabaseDriver()
     try:
-        results = database.search(term)
+        results = database.search(term, terms_per_page=1000)
         app.logger.info(results)
     finally:
         database.close()
