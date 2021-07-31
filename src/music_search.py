@@ -1,14 +1,8 @@
-import json
 import logging
-import mmap
-import os
 import re
 import requests
 
 from src.database.db import DatabaseDriver
-
-PATTERN = re.compile(b'cello', re.IGNORECASE)
-END_OF_LINE = b'\n'
 
 DEEZER_SEARCH = 'https://api.deezer.com/search?q='
 
