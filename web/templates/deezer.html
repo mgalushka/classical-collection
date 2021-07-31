@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
   <!-- Site Properties -->
-  <title>Classical Collection Search</title>
+  <title>Deezer Results</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -15,9 +15,9 @@
 </head>
 <body>
 
-<h2 class="ui center aligned header"><a href="/">Find music</a></h2>
+<h2 class="ui center aligned header"><a href="/">Search All</a></h2>
 
-<form class="ui form" action="search" method="POST">
+<form class="ui form" action="deezer_search" method="POST">
   <div class="ui input focus field">
     <input type="text" placeholder="Search..." name="term">
   </div>
@@ -28,20 +28,39 @@
 <h3 class="ui center aligned header">Results</h3>
 {% endif %}
 <div class="ui stackable one column divided grid container">
-  {% for result in results %}
+  {% for result in results['data'] %}
   <div class="row">
     <div class="column">
       <div class="ui segment">
-        <a href="deezer_search?term={{ result['id'] }}" target="_blank">{{ result['id'] }} </a>
+        <a href="{{ result['link'] }}" target="_blank">{{ result['title'] }}</a>
       </div>
     </div>
     <div class="column">
-      <div class="ui segment"><a href="deezer_search?term={{ result['intvals']['composer'] }}" target="_blank">{{ result['intvals']['composer'] }}</a></div>
+      <div class="ui segment">
+        <img src="{{ result['artist']['picture_small'] }}" alt=''/>
+        Artist: {{ result['artist']['name'] }}
+      </div>
     </div>
-
+    <div class="column">
+      <div class="ui segment">
+        <img src="{{ result['album']['cover_small'] }}" />
+        Album: {{ result['album']['title'] }}
+      </div>
+    </div>
+    <div class="column">
+      <audio id="audio_{{ result['id'] }}">
+        <source src="{{ result['preview'] }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <div class="ui segment">
+        <input type="button" value="Play" onclick="play('audio_{{ result['id'] }}');" />
+        <input type="button" value="Stop" onclick="pause('audio_{{ result['id'] }}');" />
+      </div>
+    </div>
   </div>
   {% endfor %}
 </div>
+
 
 <script src="static/display.js"></script>
 </body>
