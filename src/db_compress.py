@@ -14,13 +14,28 @@ if __name__ == '__main__':
 
     start = 0
     iterations = 10
+    ids = set()
     while start < size and iterations > 0:
-        end = mm.find(END_OF_LINE, size)
-        if end == -1:
-            end = size
+        end = mm.find(END_OF_LINE, start)
+        if end < start:
+            break
 
-        parse = json.load(mm[start:end])
-        print(parse)
+        json_raw_line = mm[start:end].decode('utf-8')
+        # print(json_raw_line)
+        parse = json.loads(json_raw_line)
+        id = parse['id']
+        # print(parse)
+
+        if id in ids:
+            print('Already there: {}'.format(id))
+            mm.move(start, end, size - end)
+            # end -= (end - start)
+        else:
+            ids.add(id)
 
         start = end + 1
         iterations += 1
+
+    mm.flush()
+    mm.close()
+    file.close()
